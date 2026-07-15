@@ -19,8 +19,8 @@ createAppKit({
   enableWalletConnect: false,
   allWallets: 'HIDE',
   metadata: {
-    name: 'ChainFund',
-    description: 'Decentralized Crowdfunding on Blockchain',
+    name: 'AgentHub',
+    description: 'AI Agent Rental Marketplace on Blockchain',
     url: 'http://localhost:3000',
     icons: [],
   },

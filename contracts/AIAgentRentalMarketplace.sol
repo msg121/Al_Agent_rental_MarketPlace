@@ -183,14 +183,3 @@ contract AIAgentRentalMarketplace is ReentrancyGuard {
         emit ListingStatusToggled(_agentId, agent.isPaused);
     }
 
-    function setPlatformFeePercent(uint256 _newFeePercent) external onlyOwner {
-        require(_newFeePercent <= 100, "Invalid fee");
-        platformFeePercent = _newFeePercent;
-    }
-
-    function getAverageRating(uint256 _agentId) external view returns (uint256) {
-        Agent memory agent = agents[_agentId];
-        if (agent.ratingCount == 0) return 0;
-        return agent.totalRatings / agent.ratingCount;
-    }
-}

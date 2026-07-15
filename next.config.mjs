@@ -21,6 +21,11 @@ const nextConfig = {
       config.resolve.alias[dep] = false
     })
 
+    config.watchOptions = {
+      ...config.watchOptions,
+      ignored: ['**/components/contract/**', '**/node_modules/**'],
+    }
+
     return config
   },
 }

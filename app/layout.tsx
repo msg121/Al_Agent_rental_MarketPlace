@@ -20,8 +20,8 @@ const Providers = dynamic(
 )
 
 export const metadata: Metadata = {
-  title: 'Wallet Connect',
-  description: 'Connect your Web3 wallet',
+  title: 'AgentHub — AI Agent Rental Marketplace',
+  description: 'Rent and list AI agents on the blockchain. Decentralized, transparent, trustless.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

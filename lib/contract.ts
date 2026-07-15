@@ -21,6 +21,8 @@ export function getAddressUrl(address: string) {
   return `${EXPLORER_URL}/address/${address}`
 }
 
+// ── USDT ERC-20 ABI ─────────────────────────────────────────────────────────
+
 export const USDT_ABI = [
   'function balanceOf(address account) view returns (uint256)',
   'function allowance(address owner, address spender) view returns (uint256)',
@@ -29,17 +31,35 @@ export const USDT_ABI = [
   'function faucet()',
 ] as const
 
-export const CONTRACT_ABI = [
-  'function getCampaignCount() view returns (uint256)',
-  'function getCampaign(uint256 id) view returns (uint256 id, address creator, string title, string description, uint256 goal, uint256 raised, uint256 deadline, bool withdrawn, uint256 contributorsCount)',
-  'function createCampaign(string title, string description, uint256 goal, uint256 durationDays)',
-  'function contribute(uint256 campaignId, uint256 amount)',
-  'function withdraw(uint256 campaignId)',
-  'function getContributions(uint256 campaignId) view returns (tuple(address contributor, uint256 amount, bytes32 txHash, uint256 timestamp)[])',
+// ── AI Agent Rental Marketplace ABI ─────────────────────────────────────────
+
+export const MARKETPLACE_ABI = [
+  // Read functions
+  'function owner() view returns (address)',
+  'function paymentToken() view returns (address)',
+  'function platformFeePercent() view returns (uint256)',
+  'function totalAgents() view returns (uint256)',
+  'function totalPlatformFees() view returns (uint256)',
+  'function agents(uint256 agentId) view returns (uint256 id, address provider, string metadataURI, string accessInfo, uint256 pricePerPeriod, uint256 periodDuration, bool isPaused, uint256 totalRatings, uint256 ratingCount)',
+  'function rentals(uint256 agentId, address renter) view returns (address renter, uint256 startTime, uint256 expiryTime, uint256 allowedRatingsCount)',
+  'function earnings(address user) view returns (uint256)',
+  'function getAccessInfo(uint256 agentId) view returns (string)',
+  'function getAverageRating(uint256 agentId) view returns (uint256)',
+
+  // Write functions
+  'function registerAgent(string metadataURI, string accessInfo, uint256 pricePerPeriod, uint256 durationInDays)',
+  'function rentAgent(uint256 agentId)',
+  'function rateAgent(uint256 agentId, uint8 rating)',
+  'function withdraw()',
+  'function updateAgent(uint256 agentId, uint256 newPrice, bool isPaused)',
+  'function toggleListingStatus(uint256 agentId)',
+  'function setPlatformFeePercent(uint256 newFeePercent)',
 ] as const
 
-export function getCrowdFundingContract(signerOrProvider: ConstructorParameters<typeof Contract>[2]) {
-  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signerOrProvider)
+// ── Contract factory functions ──────────────────────────────────────────────
+
+export function getMarketplaceContract(signerOrProvider: ConstructorParameters<typeof Contract>[2]) {
+  return new Contract(CONTRACT_ADDRESS, MARKETPLACE_ABI, signerOrProvider)
 }
 
 export function getUsdtContract(signerOrProvider: ConstructorParameters<typeof Contract>[2]) {
