@@ -40,7 +40,7 @@ export default function Home() {
               </motion.div>
 
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-                <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/60 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/60 bg-clip-text text-transparent pr-2">
                   Rent AI Agents
                 </span>
                 <br />

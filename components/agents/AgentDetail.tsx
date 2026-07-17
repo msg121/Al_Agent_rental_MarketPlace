@@ -12,6 +12,8 @@ import { AccessInfoPanel } from '@/components/rental/AccessInfoPanel'
 import { useRental } from '@/hooks/useRental'
 import { useRateAgent } from '@/hooks/useRateAgent'
 import { useWeb3 } from '@/hooks/useWeb3'
+import { useIsOwner } from '@/hooks/useIsOwner'
+import { ToggleListingButton } from '@/components/agents/ToggleListingButton'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Bot, ExternalLink, Clock, Users, DollarSign, Pause, Star } from 'lucide-react'
@@ -26,6 +28,7 @@ export function AgentDetail({ agent }: AgentDetailProps) {
   const avgRating = getAverageRating(agent.totalRatings, agent.ratingCount)
   const durationDays = getDaysFromSeconds(agent.periodDuration)
   const { address } = useWeb3()
+  const { isOwner } = useIsOwner()
   const isProvider = address?.toLowerCase() === agent.provider.toLowerCase()
   const { rental, isActive } = useRental(agent.id)
   const { rateAgent } = useRateAgent()
@@ -173,6 +176,16 @@ export function AgentDetail({ agent }: AgentDetailProps) {
                   isProvider={isProvider}
                   isRented={isActive}
                 />
+                
+                {/* Management Controls (Owner/Provider) */}
+                {(isProvider || isOwner) && (
+                  <div className="mt-4 pt-4 border-t border-border/30">
+                    <p className="text-xs text-muted-foreground mb-3 text-center">
+                      Manage Agent Status
+                    </p>
+                    <ToggleListingButton agentId={agent.id} isPaused={agent.isPaused} />
+                  </div>
+                )}
               </CardContent>
             </Card>
 

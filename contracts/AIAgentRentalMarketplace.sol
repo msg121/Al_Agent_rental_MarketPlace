@@ -148,16 +148,14 @@ contract AIAgentRentalMarketplace is ReentrancyGuard {
     }
 
     function withdraw() external nonReentrant {
-        uint256 amount;
+        uint256 amount = earnings[msg.sender];
         if (msg.sender == owner) {
-            amount = totalPlatformFees;
-            require(amount > 0, "No fees");
+            amount += totalPlatformFees;
             totalPlatformFees = 0;
-        } else {
-            amount = earnings[msg.sender];
-            require(amount > 0, "No earnings");
-            earnings[msg.sender] = 0;
         }
+        
+        require(amount > 0, "No funds available");
+        earnings[msg.sender] = 0;
 
         require(paymentToken.transfer(msg.sender, amount), "Transfer failed");
         emit FundsWithdrawn(msg.sender, amount);

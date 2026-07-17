@@ -21,7 +21,33 @@ export function useRentAgent() {
       const usdtContract = getUsdtContract(signer)
       let marketplaceContract = getMarketplaceContract(signer)
 
-      // Step 1: approve if current allowance is insufficient
+      // Step 1: check balance
+      const balance = await usdtContract.balanceOf(address)
+      if ((balance as bigint) < pricePerPeriod) {
+        setPending(false)
+        toast.error('Insufficient USDT balance', {
+          description: 'You need test USDT to rent this agent.',
+          duration: 8000,
+          action: {
+            label: 'Get Test USDT',
+            onClick: async () => {
+              try {
+                const tx = await usdtContract.faucet()
+                toast.promise(tx.wait(1), {
+                  loading: 'Minting test USDT...',
+                  success: 'Test USDT received! You can now rent the agent.',
+                  error: 'Failed to mint test USDT',
+                })
+              } catch (e) {
+                toast.error('Failed to mint test USDT')
+              }
+            }
+          }
+        })
+        return false
+      }
+
+      // Step 2: approve if current allowance is insufficient
       const allowance = await usdtContract.allowance(address, CONTRACT_ADDRESS)
       if ((allowance as bigint) < pricePerPeriod) {
         setPending(true, 'Approving USDT spend allowance...')
@@ -32,6 +58,7 @@ export function useRentAgent() {
         // Re-authorize after long wait — Opera/MetaMask returns 4100 without this
         const { signer: freshSigner } = await getAuthorizedSigner(walletProvider, address)
         marketplaceContract = getMarketplaceContract(freshSigner)
+        usdtContract.connect(freshSigner) // re-connect usdt contract too if needed, though we don't use it after this
         setPending(true, 'Waiting for rental signature in wallet...')
       }
 

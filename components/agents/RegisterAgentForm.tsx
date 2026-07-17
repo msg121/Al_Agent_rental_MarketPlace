@@ -89,7 +89,7 @@ export function RegisterAgentForm() {
                 id="name"
                 placeholder="e.g., GPT-4 Code Architect"
                 {...register('name')}
-                className="bg-background/50 border-border/50"
+                className="bg-background border-border text-white placeholder-gray-400 focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary caret-white"
               />
               {errors.name && <p className="text-xs text-destructive mt-1">{errors.name.message}</p>}
             </div>
@@ -124,7 +124,7 @@ export function RegisterAgentForm() {
                 placeholder="Describe what your AI agent does, its capabilities, and how users benefit from renting it..."
                 {...register('description')}
                 rows={4}
-                className="flex w-full rounded-md border border-border/50 bg-background/50 px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring resize-none"
+                className="flex w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-white placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary caret-white resize-none"
               />
               {errors.description && <p className="text-xs text-destructive mt-1">{errors.description.message}</p>}
             </div>
@@ -141,7 +141,7 @@ export function RegisterAgentForm() {
                 id="accessInfo"
                 placeholder="https://api.example.com/your-agent?key=..."
                 {...register('accessInfo')}
-                className="bg-background/50 border-border/50 font-mono text-xs"
+                className="bg-background border-border font-mono text-xs text-white placeholder-gray-400 focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary caret-white"
               />
               {errors.accessInfo && <p className="text-xs text-destructive mt-1">{errors.accessInfo.message}</p>}
             </div>
@@ -155,7 +155,7 @@ export function RegisterAgentForm() {
                   step="0.01"
                   placeholder="25"
                   {...register('priceUsdt')}
-                  className="bg-background/50 border-border/50 font-mono"
+                  className="bg-background border-border font-mono text-white placeholder-gray-400 focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary caret-white"
                 />
                 {errors.priceUsdt && <p className="text-xs text-destructive mt-1">{errors.priceUsdt.message}</p>}
               </div>
@@ -166,7 +166,7 @@ export function RegisterAgentForm() {
                   type="number"
                   placeholder="30"
                   {...register('durationDays', { valueAsNumber: true })}
-                  className="bg-background/50 border-border/50 font-mono"
+                  className="bg-background border-border font-mono text-white placeholder-gray-400 focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary caret-white"
                 />
                 {errors.durationDays && <p className="text-xs text-destructive mt-1">{errors.durationDays.message}</p>}
               </div>

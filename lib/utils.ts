@@ -12,9 +12,11 @@ export function truncateAddress(address: string, start = 6, end = 4): string {
   return `${address.slice(0, start)}...${address.slice(-end)}`
 }
 
-// USDT has 6 decimals
+import { USDT_DECIMALS } from '@/lib/contract'
+
+// Token uses specified decimals (usually 18 for test tokens, 6 for real USDT)
 export function formatUsdt(amount: bigint, decimals = 2): string {
-  return parseFloat(formatUnits(amount, 6)).toFixed(decimals)
+  return parseFloat(formatUnits(amount, USDT_DECIMALS)).toFixed(decimals)
 }
 
 export function getDaysFromSeconds(seconds: bigint): number {

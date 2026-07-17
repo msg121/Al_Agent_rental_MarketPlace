@@ -53,7 +53,7 @@ export default function MyAgentsPage() {
                   <p className="text-sm text-muted-foreground">You haven&apos;t registered any AI agents on the marketplace.</p>
                 </motion.div>
               )}
-              {(myAgents.length > 0 || isLoading) && (
+              {(myAgents.length > 0 || isLoading || isError) && (
                 <AgentGrid agents={myAgents} isLoading={isLoading} isError={isError} showFilters={false} />
               )}
             </>

@@ -3,9 +3,9 @@ import { JsonRpcProvider, Contract } from 'ethers'
 export const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS ?? ''
 export const USDT_TOKEN_ADDRESS = process.env.NEXT_PUBLIC_USDT_ADDRESS ?? ''
 export const SUPPORTED_CHAIN_ID = parseInt(process.env.NEXT_PUBLIC_CHAIN_ID ?? '11155111')
-export const USDT_DECIMALS = 6
+export const USDT_DECIMALS = 18
 
-const RPC_URL = process.env.NEXT_PUBLIC_RPC_URL ?? 'https://rpc.sepolia.org'
+const RPC_URL = process.env.NEXT_PUBLIC_RPC_URL ?? 'https://ethereum-sepolia.publicnode.com'
 export const EXPLORER_URL = process.env.NEXT_PUBLIC_EXPLORER_URL ?? 'https://sepolia.etherscan.io'
 
 /** Read-only provider (no wallet needed) */
