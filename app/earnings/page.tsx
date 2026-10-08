@@ -153,50 +153,53 @@ export default function EarningsPage() {
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
             
             {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              {/* Total Earnings */}
-              <div className="p-6 rounded-3xl border border-cyan-500/20 bg-[#0c1222]/80 backdrop-blur-xl shadow-[0_0_30px_rgba(6,182,212,0.05)] relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
-                <div className="flex justify-between items-start mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
-                      <DollarSign className="w-6 h-6 text-cyan-400" />
+            <div className={`grid grid-cols-1 ${isOwner ? 'md:grid-cols-3' : 'md:grid-cols-1 max-w-sm'} gap-6 mb-8`}>
+              {/* Total Earnings (Only visible to Owner) */}
+              {isOwner && (
+                <div className="p-6 rounded-3xl border border-cyan-500/20 bg-[#0c1222]/80 backdrop-blur-xl shadow-[0_0_30px_rgba(6,182,212,0.05)] relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
+                        <DollarSign className="w-6 h-6 text-cyan-400" />
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">Total Earnings</h3>
+                        <p className="text-xs text-slate-500">From all your agents</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">Total Earnings</h3>
-                      <p className="text-xs text-slate-500">From all your agents</p>
+                    <div className="flex items-center gap-1 text-xs font-semibold text-green-400 bg-green-500/10 px-2 py-1 rounded border border-green-500/20">
+                      <TrendingUp className="w-3 h-3" /> +12.5%
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 text-xs font-semibold text-green-400 bg-green-500/10 px-2 py-1 rounded border border-green-500/20">
-                    <TrendingUp className="w-3 h-3" /> +12.5%
+                  <div className="font-mono text-4xl font-bold text-white">
+                    {isLoading ? '...' : formatUsdt(providerEarnings)} <span className="text-xl text-slate-500 font-sans">M</span>
                   </div>
                 </div>
-                <div className="font-mono text-4xl font-bold text-white">
-                  {isLoading ? '...' : formatUsdt(providerEarnings)} <span className="text-xl text-slate-500 font-sans">M</span>
-                </div>
-              </div>
+              )}
 
-              {/* Marketplace Fees */}
-              <div className="p-6 rounded-3xl border border-purple-500/20 bg-[#0c1222]/80 backdrop-blur-xl shadow-[0_0_30px_rgba(168,85,247,0.05)] relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
-                <div className="flex justify-between items-start mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-purple-500/10 border border-purple-500/30 flex items-center justify-center">
-                      <Shield className="w-6 h-6 text-purple-400" />
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">Marketplace Fees</h3>
-                      <p className="text-xs text-slate-500">Owner Revenue</p>
+              {/* Marketplace Fees (Only visible to Owner) */}
+              {isOwner && (
+                <div className="p-6 rounded-3xl border border-purple-500/20 bg-[#0c1222]/80 backdrop-blur-xl shadow-[0_0_30px_rgba(168,85,247,0.05)] relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-full bg-purple-500/10 border border-purple-500/30 flex items-center justify-center">
+                        <Shield className="w-6 h-6 text-purple-400" />
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">Marketplace Fees</h3>
+                        <p className="text-xs text-slate-500">Owner Revenue</p>
+                      </div>
                     </div>
                   </div>
+                  <div className="font-mono text-4xl font-bold text-white">
+                    {isLoading ? '...' : formatUsdt(platformFees)} <span className="text-xl text-slate-500 font-sans">M</span>
+                  </div>
                 </div>
-                <div className="font-mono text-4xl font-bold text-white">
-                  {isLoading ? '...' : formatUsdt(platformFees)} <span className="text-xl text-slate-500 font-sans">M</span>
-                </div>
-                {!isOwner && <div className="absolute inset-0 bg-[#05050A]/60 backdrop-blur-sm flex items-center justify-center"><span className="px-3 py-1.5 rounded-full bg-white/10 text-xs font-semibold text-slate-300 border border-white/10">Owner Only</span></div>}
-              </div>
+              )}
 
-              {/* Available Balance */}
+              {/* Available Balance (Provider's Payment) */}
               <div className="p-6 rounded-3xl border border-green-500/20 bg-[#0c1222]/80 backdrop-blur-xl shadow-[0_0_30px_rgba(34,197,94,0.05)] relative overflow-hidden flex flex-col justify-between">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
                 <div className="flex justify-between items-start mb-4">
@@ -205,7 +208,7 @@ export default function EarningsPage() {
                       <Wallet className="w-6 h-6 text-green-400" />
                     </div>
                     <div>
-                      <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">Available Balance</h3>
+                      <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">{isOwner ? 'Available Balance' : 'Your Payment'}</h3>
                       <p className="text-xs text-slate-500">Ready to withdraw</p>
                     </div>
                   </div>
