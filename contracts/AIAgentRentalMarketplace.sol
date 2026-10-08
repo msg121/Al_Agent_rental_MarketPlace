@@ -10,7 +10,7 @@ contract AIAgentRentalMarketplace is ReentrancyGuard {
     IERC20 public paymentToken;        
     uint256 public platformFeePercent; 
     uint256 public totalAgents;        
-    uint256 public totalPlatformFees;  
+    uint256 public totalPlatformFees;
 
     struct Agent {
         uint256 id;
@@ -180,4 +180,4 @@ contract AIAgentRentalMarketplace is ReentrancyGuard {
         
         emit ListingStatusToggled(_agentId, agent.isPaused);
     }
-
+}

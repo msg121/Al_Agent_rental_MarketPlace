@@ -4,16 +4,18 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ConnectButton } from '@/components/wallet/ConnectButton'
 import { WalletStatus } from '@/components/wallet/WalletStatus'
-import { Bot, LayoutGrid, PlusCircle, Key, DollarSign } from 'lucide-react'
+import { Bot, LayoutGrid, PlusCircle, Key, DollarSign, Search, Hexagon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 
 const navLinks = [
-  { href: '/', label: 'Browse', icon: LayoutGrid },
+  { href: '/', label: 'Home', icon: LayoutGrid },
+  { href: '/browse', label: 'Browse Agents', icon: Search },
   { href: '/agents/register', label: 'List Agent', icon: PlusCircle },
   { href: '/rentals', label: 'My Rentals', icon: Key },
   { href: '/agents/mine', label: 'My Agents', icon: Bot },
   { href: '/earnings', label: 'Earnings', icon: DollarSign },
+  { href: '/about', label: 'About', icon: Hexagon },
 ]
 
 export function Navbar() {

@@ -4,13 +4,15 @@ import type { Rental } from '@/types'
 import { getTimeRemaining, formatDate } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { Clock, CheckCircle2, XCircle } from 'lucide-react'
+import { RatingForm } from '@/components/agents/RatingForm'
 
 interface RentalStatusProps {
+  agentId: bigint
   rental: Rental | null
   isActive: boolean
 }
 
-export function RentalStatus({ rental, isActive }: RentalStatusProps) {
+export function RentalStatus({ agentId, rental, isActive }: RentalStatusProps) {
   if (!rental || rental.expiryTime === 0n) return null
 
   const { days, hours, expired } = getTimeRemaining(rental.expiryTime)
@@ -56,6 +58,10 @@ export function RentalStatus({ rental, isActive }: RentalStatusProps) {
           </div>
         )}
       </div>
+
+      {rental.allowedRatingsCount > 0n && (
+        <RatingForm agentId={agentId} />
+      )}
     </div>
   )
 }

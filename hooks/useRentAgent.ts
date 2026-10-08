@@ -25,21 +25,21 @@ export function useRentAgent() {
       const balance = await usdtContract.balanceOf(address)
       if ((balance as bigint) < pricePerPeriod) {
         setPending(false)
-        toast.error('Insufficient USDT balance', {
-          description: 'You need test USDT to rent this agent.',
+        toast.error('Insufficient M balance', {
+          description: 'You need test M to rent this agent.',
           duration: 8000,
           action: {
-            label: 'Get Test USDT',
+            label: 'Get Test M',
             onClick: async () => {
               try {
                 const tx = await usdtContract.faucet()
                 toast.promise(tx.wait(1), {
-                  loading: 'Minting test USDT...',
-                  success: 'Test USDT received! You can now rent the agent.',
-                  error: 'Failed to mint test USDT',
+                  loading: 'Minting test M...',
+                  success: 'Test M received! You can now rent the agent.',
+                  error: 'Failed to mint test M',
                 })
               } catch (e) {
-                toast.error('Failed to mint test USDT')
+                toast.error('Failed to mint test M')
               }
             }
           }
@@ -50,9 +50,9 @@ export function useRentAgent() {
       // Step 2: approve if current allowance is insufficient
       const allowance = await usdtContract.allowance(address, CONTRACT_ADDRESS)
       if ((allowance as bigint) < pricePerPeriod) {
-        setPending(true, 'Approving USDT spend allowance...')
+        setPending(true, 'Approving M spend allowance...')
         const approveTx = await usdtContract.approve(CONTRACT_ADDRESS, pricePerPeriod)
-        setPending(true, 'Processing USDT approval on blockchain...', approveTx.hash)
+        setPending(true, 'Processing M approval on blockchain...', approveTx.hash)
         await approveTx.wait(1)
 
         // Re-authorize after long wait — Opera/MetaMask returns 4100 without this

@@ -1,75 +1,63 @@
-# AI Agent Rental Marketplace
+# 🤖 AgentHub: Decentralized AI Agent Marketplace
 
-A decentralized platform for providing and renting AI agents on the blockchain.
+![AgentHub Banner](https://img.shields.io/badge/AgentHub-Web3%20AI%20Marketplace-cyan?style=for-the-badge) 
+![Ethereum Sepolia](https://img.shields.io/badge/Network-Sepolia%20Testnet-blue?style=for-the-badge)
+![IPFS/Pinata](https://img.shields.io/badge/Storage-IPFS%20Pinata-purple?style=for-the-badge)
+![Next.js](https://img.shields.io/badge/Frontend-Next.js%2014-black?style=for-the-badge)
 
-## Overview
+AgentHub is a premium, fully decentralized Web3 marketplace built for renting and listing AI Agents. We bridge the gap between AI developers and users by providing a transparent, trustless, and smart-contract-powered platform.
 
-**AI Agent Rental Marketplace** is a Web3 decentralized application (dApp) that connects AI agent creators with users looking to rent their capabilities. Powered by a Solidity smart contract, all payments, rental durations, and access rights are managed securely and transparently on the blockchain without any middlemen.
+## 🚀 The Problem & Our Solution
+Centralized AI marketplaces take huge cuts, lack transparency, and control user data. **AgentHub solves this** by executing all logic on-chain. Developers list their AI models directly, metadata is immutably stored on IPFS, and users rent agents securely via our custom ERC-20 `M` Token. 
+**No Middlemen. No Hidden Fees. Pure Web3.**
 
-## Features
+## ✨ Key Features
+- **Smart Contract Escrow:** Rental agreements are handled by an Ethereum (Sepolia) smart contract. Payments are secure, transparent, and instantly credited to developers.
+- **Decentralized Storage (IPFS):** Agent metadata (Name, Category, Description) is pinned to IPFS via Pinata.
+- **Encrypted Access:** API keys and access endpoints are securely managed and only revealed to active renters.
+- **Tokenized Economy:** Uses a custom ERC-20 `M` Token for instant, borderless payments.
+- **Trustless Rating System:** Only users with a valid on-chain rental history can review an agent, completely eliminating fake reviews.
+- **Premium Glassmorphism UI:** Built with Next.js, TailwindCSS, and Framer Motion for a stunning, futuristic user experience.
 
-- **List Your Agents**: Providers can register their AI agents with a name, description, price per rental period, and access details (like an API key or URL).
-- **Rent Agents**: Users can browse active agents and rent them using ERC-20 tokens (e.g., USDT). Once rented, they unlock the agent's access information for the specified duration.
-- **Secure Access Verification**: The smart contract verifies if a user has an active, unexpired rental before returning the private access info.
-- **Rating System**: After renting an agent, users can leave a 1-5 star rating. This helps the community identify the most reliable and useful AI agents.
-- **Withdraw Earnings**: Providers can withdraw their accumulated rental earnings directly to their connected wallets at any time. The platform handles a configurable platform fee automatically.
-- **Agent Management**: Providers retain full control over their agents and can update pricing or pause/unpause their listings.
+## 🏗️ Architecture Flow
+1. **List:** Developer lists an AI agent -> Metadata uploads to IPFS -> Agent is registered on the Sepolia Smart Contract.
+2. **Rent:** User browses agents -> Connects MetaMask -> Pays `M` Tokens -> Smart contract assigns active rental status.
+3. **Earn & Withdraw:** Developer tracks earnings on their dashboard -> Withdraws accumulated `M` Tokens directly to their wallet.
 
-## Tech Stack
+## 🛠️ Tech Stack
+- **Frontend:** Next.js 14, React, TailwindCSS, Framer Motion, Lucide Icons
+- **Blockchain/Web3:** Solidity, ethers.js, MetaMask integration
+- **Storage:** IPFS (via Pinata Dedicated Gateway)
 
-- **Frontend**: Next.js 14 (App Router), React, TypeScript
-- **Styling**: Tailwind CSS
-- **Web3 Integration**: `ethers.js` v6
-- **Wallet Connection**: Reown AppKit (`@reown/appkit`)
-- **Smart Contract**: Solidity (`AIAgentRentalMarketplace.sol`)
-- **Network**: Ethereum Sepolia Testnet
+## 💻 Running Locally
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v18 or newer)
-- A Web3 Wallet (like MetaMask)
-- Sepolia Testnet ETH (for gas fees)
-- Mock USDT (for renting agents)
-
-### 1. Clone & Install Dependencies
-
+1. Clone the repository:
 ```bash
-git clone <repository_url>
-cd Al_Agent_rental_MarketPlace
+git clone https://github.com/your-username/AgentHub.git
+cd AgentHub
+```
+
+2. Install dependencies:
+```bash
 npm install
 ```
 
-### 2. Configure Environment Variables
-
-Create a `.env.local` file in the root directory and add the following keys. You can get a WalletConnect Project ID from [cloud.reown.com](https://cloud.reown.com/).
-
+3. Set up environment variables (`.env.local`):
 ```env
-NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID="your_reown_project_id"
-NEXT_PUBLIC_CONTRACT_ADDRESS="your_deployed_marketplace_contract_address"
-NEXT_PUBLIC_USDT_ADDRESS="your_deployed_erc20_token_address"
-NEXT_PUBLIC_CHAIN_ID=11155111
-NEXT_PUBLIC_RPC_URL="https://ethereum-sepolia-rpc.publicnode.com"
-NEXT_PUBLIC_EXPLORER_URL="https://sepolia.etherscan.io"
+NEXT_PUBLIC_PINATA_GATEWAY_URL=your_pinata_gateway
 ```
 
-### 3. Run the Development Server
-
+4. Run the development server:
 ```bash
 npm run dev
 ```
+Visit `http://localhost:3000` to interact with the marketplace.
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to interact with the application.
+## 🌟 Roadmap (What's Next?)
+- **Phase 1 (Live):** Sepolia Testnet deployment, IPFS integration, Glassmorphism UI, full rental flow.
+- **Phase 2 (In-Progress):** Integration of an on-chain 24/7 AI Customer Support Agent to assist Web3 users.
+- **Phase 3:** Deployment to Ethereum Mainnet, Arbitrum, and Polygon. Support for multi-token payments.
 
-## Smart Contract Structure
-
-The main logic resides in `contracts/AIAgentRentalMarketplace.sol`.
-
-### Key Functions
-- `registerAgent()`: Creates a new AI agent listing.
-- `rentAgent()`: Transfers the payment token from the renter to the contract, locking the rental period.
-- `getAccessInfo()`: A read function that verifies the caller's rental expiry before returning the private access URL/key.
-- `rateAgent()`: Allows a verified renter to rate the agent.
-- `withdraw()`: Allows providers to claim their earnings and the owner to collect platform fees.
-- `updateAgent()` & `toggleListingStatus()`: Allows the provider to manage their listings.
+## 🤝 Built By
+**MSG** - Web3 & AI Developer  
+*Developed specifically for showcasing at Web3 Hackathons.*

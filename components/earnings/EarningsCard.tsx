@@ -57,7 +57,7 @@ export function EarningsCard() {
           <div>
             <div className="text-xs text-muted-foreground uppercase tracking-wide">Provider Earnings</div>
             <div className="text-2xl font-bold font-mono text-foreground">
-              {isLoading ? '...' : `${formatUsdt(providerEarnings)} USDT`}
+              {isLoading ? '...' : `${formatUsdt(providerEarnings)} M`}
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@ export function EarningsCard() {
             <div>
               <div className="text-[10px] text-muted-foreground uppercase tracking-wide">Marketplace Fees (Owner)</div>
               <div className="text-xl font-bold font-mono text-foreground">
-                {isLoading ? '...' : `${formatUsdt(platformFees)} USDT`}
+                {isLoading ? '...' : `${formatUsdt(platformFees)} M`}
               </div>
             </div>
           </div>
@@ -79,7 +79,7 @@ export function EarningsCard() {
         {total > 0n && (
           <div className="flex items-center gap-1.5 text-xs text-success mt-5 bg-success/10 w-fit px-3 py-1.5 rounded-full border border-success/20">
             <TrendingUp className="h-3 w-3" />
-            <span>Ready to withdraw: <strong>{formatUsdt(total)} USDT total</strong></span>
+            <span>Ready to withdraw: <strong>{formatUsdt(total)} M total</strong></span>
           </div>
         )}
       </CardContent>

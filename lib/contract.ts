@@ -21,7 +21,7 @@ export function getAddressUrl(address: string) {
   return `${EXPLORER_URL}/address/${address}`
 }
 
-// ── USDT ERC-20 ABI ─────────────────────────────────────────────────────────
+// ── M ERC-20 ABI ─────────────────────────────────────────────────────────
 
 export const USDT_ABI = [
   'function balanceOf(address account) view returns (uint256)',

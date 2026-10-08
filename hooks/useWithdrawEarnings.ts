@@ -28,7 +28,7 @@ export function useWithdrawEarnings() {
       setPending(false)
       triggerRefresh()
       toast.success('Funds withdrawn!', {
-        description: 'USDT has been transferred to your wallet',
+        description: 'M has been transferred to your wallet',
         action: { label: 'View Tx', onClick: () => window.open(getTxUrl(tx.hash), '_blank') },
       })
       return true

@@ -38,8 +38,8 @@ export function RentButton({ agentId, pricePerPeriod, isPaused, isProvider, isRe
     if (!isConnected) return 'Connect to Rent'
     if (isPaused) return 'Agent Paused'
     if (isProvider) return 'Your Agent'
-    if (isRented) return `Extend Rental — ${formatUsdt(pricePerPeriod)} USDT`
-    return `Rent for ${formatUsdt(pricePerPeriod)} USDT`
+    if (isRented) return `Extend Rental — ${formatUsdt(pricePerPeriod)} M`
+    return `Rent for ${formatUsdt(pricePerPeriod)} M`
   }
 
   return (

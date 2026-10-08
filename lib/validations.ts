@@ -9,8 +9,8 @@ export const registerAgentSchema = z.object({
     .string()
     .min(1, 'Price is required')
     .refine((val) => !isNaN(parseFloat(val)), { message: 'Enter a valid number' })
-    .refine((val) => parseFloat(val) >= 1, { message: 'Minimum price is 1 USDT' })
-    .refine((val) => parseFloat(val) <= 100000, { message: 'Maximum price is 100,000 USDT' }),
+    .refine((val) => parseFloat(val) >= 1, { message: 'Minimum price is 1 M' })
+    .refine((val) => parseFloat(val) <= 100000, { message: 'Maximum price is 100,000 M' }),
   durationDays: z.number().min(1, 'Duration must be at least 1 day').max(365, 'Maximum duration is 365 days'),
 })
 
@@ -19,7 +19,7 @@ export const updateAgentSchema = z.object({
     .string()
     .min(1, 'Price is required')
     .refine((val) => !isNaN(parseFloat(val)), { message: 'Enter a valid number' })
-    .refine((val) => parseFloat(val) >= 1, { message: 'Minimum price is 1 USDT' }),
+    .refine((val) => parseFloat(val) >= 1, { message: 'Minimum price is 1 M' }),
   isPaused: z.boolean(),
 })
 

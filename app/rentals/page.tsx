@@ -152,7 +152,7 @@ export default function RentalsPage() {
                               <h3 className="font-semibold text-foreground">{agentName}</h3>
                               <div className="flex items-center gap-2 mt-1">
                                 <Badge variant="outline" className="text-[10px]">{agentCategory}</Badge>
-                                <span className="text-xs font-mono text-muted-foreground">{formatUsdt(agentPrice)} USDT</span>
+                                <span className="text-xs font-mono text-muted-foreground">{formatUsdt(agentPrice)} M</span>
                               </div>
                             </div>
                           </div>
@@ -163,7 +163,7 @@ export default function RentalsPage() {
                             {isActive ? 'Active' : 'Expired'}
                           </Badge>
                         </div>
-                        <RentalStatus rental={rental} isActive={isActive} />
+                        <RentalStatus agentId={agentId} rental={rental} isActive={isActive} />
                       </CardContent>
                     </Card>
                   </Link>

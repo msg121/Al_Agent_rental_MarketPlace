@@ -14,7 +14,7 @@ export function truncateAddress(address: string, start = 6, end = 4): string {
 
 import { USDT_DECIMALS } from '@/lib/contract'
 
-// Token uses specified decimals (usually 18 for test tokens, 6 for real USDT)
+// Token uses specified decimals (usually 18 for test tokens, 6 for real M)
 export function formatUsdt(amount: bigint, decimals = 2): string {
   return parseFloat(formatUnits(amount, USDT_DECIMALS)).toFixed(decimals)
 }

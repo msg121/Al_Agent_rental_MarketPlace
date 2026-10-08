@@ -8,6 +8,8 @@ import { useTransactionStore } from '@/store/transactionStore'
 import type { RegisterAgentFormData } from '@/lib/validations'
 import { getAuthorizedSigner } from '@/lib/authorizedSigner'
 
+import { uploadMetadata } from '@/lib/ipfs'
+
 export function useRegisterAgent() {
   const { walletProvider, address, isConnected } = useWeb3()
   const [isSuccess, setIsSuccess] = useState(false)
@@ -17,18 +19,21 @@ export function useRegisterAgent() {
   const registerAgent = async (data: RegisterAgentFormData): Promise<boolean> => {
     try {
       if (!walletProvider || !address || !isConnected) return false
-      setPending(true, 'Waiting for signature in wallet...')
-
-      const { signer } = await getAuthorizedSigner(walletProvider, address)
-      const contract = getMarketplaceContract(signer)
-
-      // Build metadataURI as JSON string
-      const metadataURI = JSON.stringify({
+      
+      // 1. Upload to Pinata first
+      setPending(true, 'Uploading agent data to IPFS (Pinata)...')
+      const metadataURI = await uploadMetadata({
         name: data.name,
         description: data.description,
         category: data.category,
         image: '',
       })
+
+      // 2. Then call Smart Contract
+      setPending(true, 'Waiting for signature in wallet...')
+
+      const { signer } = await getAuthorizedSigner(walletProvider, address)
+      const contract = getMarketplaceContract(signer)
 
       const tx = await contract.registerAgent(
         metadataURI,
@@ -47,12 +52,17 @@ export function useRegisterAgent() {
         action: { label: 'View Tx', onClick: () => window.open(getTxUrl(tx.hash), '_blank') },
       })
       return true
-    } catch (error: unknown) {
+    } catch (error: any) {
+      console.error("Registration Error details:", error)
       setPending(false)
-      const code = (error as { code?: number | string })?.code
-      if (code === 4001 || code === 'ACTION_REJECTED') toast.error('Transaction cancelled')
-      else if (code === 4100) toast.error('Wallet authorization lost. Reconnect and try again.')
-      else toast.error('Registration failed. Please try again.')
+      const code = error?.code
+      if (code === 4001 || code === 'ACTION_REJECTED') {
+        toast.error('Transaction cancelled')
+      } else if (code === 4100) {
+        toast.error('Wallet authorization lost. Reconnect and try again.')
+      } else {
+        toast.error(`Registration failed: ${error?.message || 'Unknown error'}`)
+      }
       return false
     }
   }
