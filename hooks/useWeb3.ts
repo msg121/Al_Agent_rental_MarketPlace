@@ -14,9 +14,14 @@ export function useWeb3() {
     ? Number(String(caipNetwork.id).includes(':') ? String(caipNetwork.id).split(':').pop() : caipNetwork.id)
     : undefined
   const isCorrectNetwork = chainId === SUPPORTED_CHAIN_ID
+  
+  // Extract the actual hex address if it's in CAIP-10 format (e.g., eip155:1:0x...)
+  const parsedAddress = address
+    ? (address.includes(':') ? address.split(':').pop() : address)
+    : undefined
 
   return {
-    address: address as string | undefined,
+    address: parsedAddress as string | undefined,
     isConnected,
     chainId,
     isCorrectNetwork,
