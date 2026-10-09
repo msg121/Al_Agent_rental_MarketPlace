@@ -66,9 +66,12 @@ export function parseMetadata(metadataURI: string): AgentMetadata {
       image: parsed.image || '',
     }
   } catch {
+    const isIpfs = metadataURI.startsWith('ipfs://')
     return {
-      name: 'Unnamed Agent',
-      description: metadataURI || 'No description provided.',
+      name: isIpfs ? 'Agent (Missing Metadata)' : 'Unnamed Agent',
+      description: isIpfs 
+        ? 'Metadata was lost during upload. Please register a new agent.' 
+        : (metadataURI || 'No description provided.'),
       category: 'Other',
       image: '',
     }

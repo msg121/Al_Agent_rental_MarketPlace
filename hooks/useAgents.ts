@@ -38,7 +38,9 @@ export function useAgents() {
         Array.from({ length: total }, (_, i) => contract.agents(i + 1))
       )
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const parsedAgents = results.map((r: any) => parseAgent(r)).filter((a) => a.id !== 0n)
+      const parsedAgents = results
+        .map((r: any) => parseAgent(r))
+        .filter((a) => a.id !== 0n && !a.metadataURI.startsWith('ipfs://'))
       parsedAgents.sort((a, b) => Number(b.id - a.id)) // Sort newest first
       setAgents(parsedAgents)
     } catch (e) {

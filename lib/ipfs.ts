@@ -11,9 +11,9 @@ const GATEWAY_TOKEN = process.env.NEXT_PUBLIC_PINATA_GATEWAY_TOKEN ?? ''
  * @returns The IPFS URI (e.g. ipfs://Qm...)
  */
 export async function uploadMetadata(metadata: AgentMetadata): Promise<string> {
-  // Bypassing actual Pinata upload since API keys are invalid.
-  // Using the static CID provided to unblock the registration flow.
-  return 'ipfs://bafybeihmorwlxmbalu7pnfk75r25odl3kr47rq6k653v7z7e2mc2heraau'
+  // Since AgentCard and other components parse metadata synchronously,
+  // we return the JSON stringified metadata directly instead of an IPFS URI.
+  return JSON.stringify(metadata)
 }
 
 /**

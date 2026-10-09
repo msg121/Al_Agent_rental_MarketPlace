@@ -128,15 +128,15 @@ export default function Home() {
               </h1>
 
               <p className="text-lg text-slate-400 mb-10 leading-relaxed max-w-lg">
-                Browse, rent, and list AI agents on the blockchain. Pay with M, get instant access, and earn from your AI models — without middlemen.
+                Discover, rent, and deploy AI agents on the blockchain. Pay with M, get instant access, and earn from your AI models — without middlemen.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="#featured" className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-semibold text-sm transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.4)]">
-                  Browse AI Agents <ArrowRight className="w-4 h-4 ml-2" />
+                  Explore AI Agents <ArrowRight className="w-4 h-4 ml-2" />
                 </a>
                 <Link href="/agents/register" className="inline-flex items-center justify-center px-8 py-3.5 rounded-full border border-cyan-500/30 bg-[#0c0c16]/80 text-white font-semibold text-sm transition-all hover:bg-cyan-500/10 hover:border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
-                  <Plus className="w-4 h-4 mr-2" /> List Your Agent
+                  <Plus className="w-4 h-4 mr-2" /> Deploy Your Agent
                 </Link>
               </div>
             </motion.div>

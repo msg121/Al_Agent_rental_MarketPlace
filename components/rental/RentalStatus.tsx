@@ -59,9 +59,7 @@ export function RentalStatus({ agentId, rental, isActive }: RentalStatusProps) {
         )}
       </div>
 
-      {rental.allowedRatingsCount > 0n && (
-        <RatingForm agentId={agentId} />
-      )}
+      <RatingForm agentId={agentId} isDisabled={rental.allowedRatingsCount === 0n} />
     </div>
   )
 }
