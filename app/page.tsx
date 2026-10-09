@@ -7,7 +7,7 @@ import { Bot, Link as LinkIcon, Zap, ArrowRight, Plus, BrainCircuit, ShieldCheck
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import type { Agent } from '@/types'
-import { parseMetadata, formatUsdt } from '@/lib/utils'
+import { parseMetadata, formatUsdt, getDaysFromSeconds } from '@/lib/utils'
 
 // Helper to get specific icons for the featured agents based on name
 function getAgentIcon(name: string) {
@@ -29,6 +29,7 @@ function getAgentGlow(name: string) {
 function FeaturedAgentCard({ agent, index }: { agent: Agent; index: number }) {
   const metadata = parseMetadata(agent.metadataURI)
   const isPopular = metadata.name.includes('Code') || metadata.name.includes('Research')
+  const durationDays = getDaysFromSeconds(agent.periodDuration)
 
   return (
     <motion.div
@@ -73,9 +74,9 @@ function FeaturedAgentCard({ agent, index }: { agent: Agent; index: number }) {
       <div className="p-6 pt-0 mt-auto relative z-10 flex flex-col gap-4 border-t border-white/5">
         <div className="flex items-center gap-2 pt-4">
           <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white/5 border border-white/10">
-            <span className="text-white text-[10px]">M</span>
+            <span className="text-white text-[10px]">$</span>
           </div>
-          <span className="text-white font-mono font-bold">{formatUsdt(agent.pricePerPeriod)} M <span className="text-slate-500 text-sm font-sans font-normal">/ hr</span></span>
+          <span className="text-white font-mono font-bold">${formatUsdt(agent.pricePerPeriod)} <span className="text-slate-500 text-sm font-sans font-normal">/ {durationDays}d</span></span>
         </div>
         
         <Link 

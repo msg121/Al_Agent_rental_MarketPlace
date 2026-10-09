@@ -103,9 +103,8 @@ export function AgentCard({ agent, index = 0 }: AgentCardProps) {
             </div>
             <div className="text-right flex items-center gap-1">
               <span className="text-sm font-bold text-cyan-400 font-mono">
-                {formatUsdt(agent.pricePerPeriod)}
+                ${formatUsdt(agent.pricePerPeriod)}
               </span>
-              <span className="text-xs text-cyan-400 font-medium">M</span>
             </div>
           </div>
         </div>

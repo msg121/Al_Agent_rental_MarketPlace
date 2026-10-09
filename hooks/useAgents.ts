@@ -21,7 +21,7 @@ function parseAgent(r: Record<number, unknown>): Agent {
 
 export function useAgents() {
   const useMock = !CONTRACT_ADDRESS
-  const [agents, setAgents] = useState<Agent[]>(useMock ? MOCK_AGENTS : [])
+  const [agents, setAgents] = useState<Agent[]>(useMock ? [...MOCK_AGENTS].sort((a, b) => Number(b.id - a.id)) : [])
   const [isLoading, setIsLoading] = useState(!useMock)
   const [isError, setIsError] = useState(false)
   const [error, setError] = useState<Error | null>(null)
@@ -38,7 +38,9 @@ export function useAgents() {
         Array.from({ length: total }, (_, i) => contract.agents(i + 1))
       )
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      setAgents(results.map((r: any) => parseAgent(r)).filter((a) => a.id !== 0n))
+      const parsedAgents = results.map((r: any) => parseAgent(r)).filter((a) => a.id !== 0n)
+      parsedAgents.sort((a, b) => Number(b.id - a.id)) // Sort newest first
+      setAgents(parsedAgents)
     } catch (e) {
       setIsError(true); setError(e as Error)
     } finally {
