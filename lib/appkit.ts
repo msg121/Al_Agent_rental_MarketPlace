@@ -15,9 +15,13 @@ createAppKit({
   // Keep wallet selection deterministic: single injected provider path only.
   enableInjected: true,
   enableEIP6963: true,
-  enableCoinbase: false,
-  enableWalletConnect: false,
-  allWallets: 'HIDE',
+  enableCoinbase: true,
+  enableWalletConnect: true,
+  allWallets: 'SHOW',
+  featuredWalletIds: [
+    'a797aa35c0fadbfc1a53e7f675162ed5226968b44a19ee3d24385c64d1d3c393', // Phantom
+    '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0', // Trust Wallet
+  ],
   metadata: {
     name: 'AgentHub',
     description: 'AI Agent Rental Marketplace on Blockchain',
@@ -26,7 +30,7 @@ createAppKit({
   },
   features: {
     analytics: false,
-    allWallets: false,
+    allWallets: true,
     email: false,
     socials: [],
   },
