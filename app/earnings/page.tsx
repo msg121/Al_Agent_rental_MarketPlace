@@ -15,16 +15,12 @@ import {
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
-// Dummy Data for Illustrative Transaction History (Hackathon Demo)
-const MOCK_TRANSACTIONS = [
-  { id: 1, date: '08 Oct 2026, 14:32', type: 'Rental Payment', agent: 'Code Architect', fromTo: '0x88ED...27F7', amount: '+ 2.50 M', status: 'Completed', txHash: '0x3f5a...9c2e', isPositive: true },
-  { id: 2, date: '07 Oct 2026, 11:15', type: 'Marketplace Fee', agent: 'Research AI', fromTo: 'Platform', amount: '+ 0.30 M', status: 'Completed', txHash: '0xa7c4...6e1b', isPositive: true },
-  { id: 3, date: '06 Oct 2026, 09:20', type: 'Rental Payment', agent: 'Content Creator', fromTo: '0x1a2b...4f6d', amount: '+ 1.20 M', status: 'Completed', txHash: '0x9d8e...2b7a', isPositive: true },
-  { id: 4, date: '05 Oct 2026, 16:47', type: 'Withdrawal', agent: 'Wallet', fromTo: '0x88ED...27F7', amount: '- 4.00 M', status: 'Completed', txHash: '0x5e7c...3a9f', isPositive: false },
-]
+import { useTransactions } from '@/hooks/useTransactions'
+import { getTxUrl } from '@/lib/contract'
 
 export default function EarningsPage() {
   const { address, isConnected, openModal } = useWeb3()
+  const { transactions, isLoading: isTxsLoading } = useTransactions()
   
   // Earnings Data Logic
   const [providerEarnings, setProviderEarnings] = useState(0n)
@@ -262,7 +258,17 @@ export default function EarningsPage() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5 text-slate-300">
-                    {MOCK_TRANSACTIONS.map((tx) => (
+                    {transactions.length === 0 && !isTxsLoading && (
+                      <tr>
+                        <td colSpan={7} className="px-6 py-8 text-center text-slate-500">No transactions found</td>
+                      </tr>
+                    )}
+                    {isTxsLoading && (
+                      <tr>
+                        <td colSpan={7} className="px-6 py-8 text-center text-slate-500">Loading history from blockchain...</td>
+                      </tr>
+                    )}
+                    {transactions.map((tx) => (
                       <tr key={tx.id} className="hover:bg-white/[0.02] transition-colors">
                         <td className="px-6 py-4">{tx.date}</td>
                         <td className="px-6 py-4">
@@ -284,7 +290,7 @@ export default function EarningsPage() {
                           </span>
                         </td>
                         <td className="px-6 py-4">
-                          <a href="#" className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300 font-mono text-xs transition-colors">
+                          <a href={getTxUrl(tx.fullHash)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300 font-mono text-xs transition-colors">
                             {tx.txHash} <ArrowUpRight className="w-3 h-3" />
                           </a>
                         </td>
@@ -294,7 +300,7 @@ export default function EarningsPage() {
                 </table>
               </div>
               <div className="px-6 py-4 border-t border-white/5 bg-white/[0.02] flex items-center justify-between">
-                <span className="text-xs text-slate-500">Showing 1–4 of 12 transactions</span>
+                <span className="text-xs text-slate-500">Showing {transactions.length} transactions</span>
                 <div className="flex gap-1">
                   <button className="px-3 py-1 rounded bg-white/5 text-slate-400 hover:bg-white/10 text-xs">&lt;</button>
                   <button className="px-3 py-1 rounded bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 text-xs font-bold">1</button>

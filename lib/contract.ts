@@ -46,6 +46,10 @@ export const MARKETPLACE_ABI = [
   'function getAccessInfo(uint256 agentId) view returns (string)',
   'function getAverageRating(uint256 agentId) view returns (uint256)',
 
+  // Events
+  'event FundsWithdrawn(address indexed user, uint256 amount)',
+  'event AgentRented(uint256 indexed agentId, address indexed renter, uint256 startTime, uint256 expiryTime)',
+
   // Write functions
   'function registerAgent(string metadataURI, string accessInfo, uint256 pricePerPeriod, uint256 durationInDays)',
   'function rentAgent(uint256 agentId)',
